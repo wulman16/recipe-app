@@ -1,6 +1,4 @@
-const validator = require(`validator`)
+const chalk = require(`chalk`)
 const getRecipe = require(`./recipe`)
 
-console.log(getRecipe())
-
-console.log(validator.isHexColor(`#00F000`))
+console.log(chalk.cyanBright.bold.bgWhiteBright(getRecipe()))
