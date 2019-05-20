@@ -9,7 +9,24 @@ yargs.version(`1.1.0`)
 yargs.command({
   command: `add`,
   describe: `Add a new recipe`,
-  handler: () => console.log(`Adding a new note...`)
+  builder: {
+    name: {
+      describe: `Recipe name`,
+      demandOption: true,
+      type: `string`
+    },
+    ingredients: {
+      describe: `Recipe ingredients`,
+      demandOption: true,
+      type: `string`
+    },
+    directions: {
+      describe: `Recipe directions`,
+      demandOption: true,
+      type: `string`
+    }
+  },
+  handler: (argv) => console.log(`Directions: ` + argv.directions)
 })
 
 // Create remove command
@@ -35,4 +52,4 @@ yargs.command({
 
 // add, remove, read, list
 
-yargs.argv
+yargs.parse()
