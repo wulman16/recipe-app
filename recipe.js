@@ -6,7 +6,9 @@ const addRecipe = (name, ingredients, directions) => {
 
   // Check whether the recipe name is already taken
   if (recipes.find(r => r.name === name)) {
+    console.log()
     console.log(chalk.red(`${name} is already a recipe!`))
+    console.log()
   } else {
     recipes.push({
       name: name,
@@ -14,7 +16,9 @@ const addRecipe = (name, ingredients, directions) => {
       directions: directions
     })
     saveRecipes(recipes)
+    console.log()
     console.log(chalk.green(`${name} added to recipes!`))
+    console.log()
   }
 }
 
@@ -24,9 +28,13 @@ const removeRecipe = (name) => {
     return r.name.toLowerCase() !== name.toLowerCase()})
   if (recipes.length > recipesToSave.length) {
     saveRecipes(recipesToSave)
+    console.log()
     console.log(chalk.green(`${name} removed from recipes!`))
+    console.log()
   } else {
+    console.log()
     console.log(chalk.red(`${name} not found in recipes!`))
+    console.log()
   }
 }
 
@@ -39,12 +47,17 @@ const listRecipes = () => {
 const readRecipe = (name) => {
   const recipes = loadRecipes()
   const recipe = recipes.find(r => r.name.toLowerCase() === name.toLowerCase())
+
   if (recipe) {
+    console.log()
     console.log(chalk.bold.italic.underline.yellow.bgCyan(recipe.name))
-    console.log(chalk.magenta(recipe.ingredients))
+    console.log(chalk.cyan(recipe.ingredients))
     console.log(chalk.yellow(recipe.directions))
+    console.log()
   } else {
+    console.log()
     console.log(chalk.red(`${name} not found in recipes!`))
+    console.log()
   }
 }
 
