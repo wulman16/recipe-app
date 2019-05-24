@@ -1,15 +1,11 @@
 const fs = require(`fs`)
 const chalk = require(`chalk`)
 
-const getRecipe = () => {
-  return `Your recipe...`
-}
-
 const addRecipe = (name, ingredients, directions) => {
   const recipes = loadRecipes()
 
   // Check whether the recipe name is already taken
-  if (recipes.filter(r => r.name === name).length > 0) {
+  if (recipes.find(r => r.name === name)) {
     console.log(chalk.red(`${name} is already a recipe!`))
   } else {
     recipes.push({
@@ -37,7 +33,19 @@ const removeRecipe = (name) => {
 const listRecipes = () => {
   const recipes = loadRecipes()
   console.log(chalk.bold.italic.underline.yellow.bgCyan(`Your recipes`))
-  recipes.forEach(r => console.log(chalk.magenta(r.name)))
+  recipes.forEach(r => console.log(chalk.yellow(r.name)))
+}
+
+const readRecipe = (name) => {
+  const recipes = loadRecipes()
+  const recipe = recipes.find(r => r.name.toLowerCase() === name.toLowerCase())
+  if (recipe) {
+    console.log(chalk.bold.italic.underline.yellow.bgCyan(recipe.name))
+    console.log(chalk.magenta(recipe.ingredients))
+    console.log(chalk.yellow(recipe.directions))
+  } else {
+    console.log(chalk.red(`${name} not found in recipes!`))
+  }
 }
 
 const saveRecipes = (recipes) => {
@@ -56,8 +64,8 @@ const loadRecipes = () => {
 }
 
 module.exports = {
-  getRecipe: getRecipe,
   addRecipe: addRecipe,
   removeRecipe: removeRecipe,
-  listRecipes: listRecipes
+  listRecipes: listRecipes,
+  readRecipe: readRecipe
 }

@@ -60,7 +60,16 @@ yargs.command({
 yargs.command({
   command: `read`,
   describe: `Read a recipe`,
-  handler: () => console.log(`Reading a recipe...`)
+  builder: {
+    name: {
+      describe: `Recipe name`,
+      demandOption: true,
+      type: `string`
+    }
+  },
+  handler(argv) {
+    recipes.readRecipe(argv.name)
+  }
 })
 
 yargs.parse()
