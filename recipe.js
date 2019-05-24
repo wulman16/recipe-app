@@ -1,4 +1,5 @@
 const fs = require(`fs`)
+const chalk = require(`chalk`)
 
 const getRecipe = () => {
   return `Your recipe...`
@@ -7,9 +8,9 @@ const getRecipe = () => {
 const addRecipe = (name, ingredients, directions) => {
   const recipes = loadRecipes()
 
-  // Check existing recipes for 
+  // Check whether the recipe name is already taken
   if (recipes.filter(r => r.name === name).length > 0) {
-    console.log(`${name} is already a recipe!`)
+    console.log(chalk.red(`${name} is already a recipe!`))
   } else {
     recipes.push({
       name: name,
@@ -17,7 +18,19 @@ const addRecipe = (name, ingredients, directions) => {
       directions: directions
     })
     saveRecipes(recipes)
-    console.log(`${name} added to recipes!`)
+    console.log(chalk.green(`${name} added to recipes!`))
+  }
+}
+
+const removeRecipe = (name) => {
+  const recipes = loadRecipes()
+  const recipesToSave = recipes.filter(r => {
+    return r.name.toLowerCase() !== name.toLowerCase()})
+  if (recipes.length > recipesToSave.length) {
+    saveRecipes(recipesToSave)
+    console.log(chalk.green(`${name} removed from recipes!`))
+  } else {
+    console.log(chalk.red(`${name} not found in recipes!`))
   }
 }
 
@@ -38,5 +51,6 @@ const loadRecipes = () => {
 
 module.exports = {
   getRecipe: getRecipe,
-  addRecipe: addRecipe
+  addRecipe: addRecipe,
+  removeRecipe: removeRecipe
 }

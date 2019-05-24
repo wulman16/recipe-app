@@ -35,7 +35,16 @@ yargs.command({
 yargs.command({
   command: `remove`,
   describe: `Remove a recipe`,
-  handler: () => console.log(`Removing a recipe...`)
+  builder: {
+    name: {
+      describe: `Recipe name`,
+      demandOption: true,
+      type: `string`
+    }
+  },
+  handler: (argv) => {
+    recipes.removeRecipe(argv.name)
+  }
 })
 
 // Create list command
@@ -51,7 +60,5 @@ yargs.command({
   describe: `Read a recipe`,
   handler: () => console.log(`Reading a recipe...`)
 })
-
-// add, remove, read, list
 
 yargs.parse()
