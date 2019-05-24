@@ -34,6 +34,12 @@ const removeRecipe = (name) => {
   }
 }
 
+const listRecipes = () => {
+  const recipes = loadRecipes()
+  console.log(chalk.bold.italic.underline.yellow.bgCyan(`Your recipes`))
+  recipes.forEach(r => console.log(chalk.magenta(r.name)))
+}
+
 const saveRecipes = (recipes) => {
   const dataJSON = JSON.stringify(recipes)
   fs.writeFileSync(`recipes.json`, dataJSON)
@@ -52,5 +58,6 @@ const loadRecipes = () => {
 module.exports = {
   getRecipe: getRecipe,
   addRecipe: addRecipe,
-  removeRecipe: removeRecipe
+  removeRecipe: removeRecipe,
+  listRecipes: listRecipes
 }

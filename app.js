@@ -51,7 +51,9 @@ yargs.command({
 yargs.command({
   command: `list`,
   describe: `List all recipes`,
-  handler: () => console.log(`Listing all recipes...`)
+  handler() {
+    recipes.listRecipes()
+  }
 })
 
 // Create read command
