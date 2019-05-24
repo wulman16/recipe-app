@@ -1,6 +1,6 @@
 const chalk = require(`chalk`)
 const yargs = require(`yargs`)
-const getRecipe = require(`./recipe`)
+const recipes = require(`./recipe`)
 
 // Customize yargs version
 yargs.version(`1.1.0`)
@@ -26,7 +26,9 @@ yargs.command({
       type: `string`
     }
   },
-  handler: (argv) => console.log(`Directions: ` + argv.directions)
+  handler: (argv) => {
+    recipes.addRecipe(argv.name, argv.ingredients, argv.directions)
+  }
 })
 
 // Create remove command
